@@ -16,6 +16,7 @@ var createComment = denodeify(github.issues.createComment);
 var LOCAL_PREFIX = "test/visual/screenshots/";
 var AWS_DEST_PREFIX = "image_diffs/" + normalizeName(appName, { version: false }) + "/" + moment().format('YYYY-MM-DD') + "/" + moment().format('HH:mm') + "-" + process.env.TRAVIS_BUILD_NUMBER + "/";
 var AWS_FAILS_INDEX = "https://s3-eu-west-1.amazonaws.com/ft-next-qa/" + AWS_DEST_PREFIX + "failures/index.html";
+var AWS_SUCCESSES_INDEX = "https://s3-eu-west-1.amazonaws.com/ft-next-qa/" + AWS_DEST_PREFIX + "successes/index.html";
 
 var results = { successes: [], failures: [] };
 if (fs.existsSync(LOCAL_PREFIX + "successes")) {
@@ -61,7 +62,7 @@ deployStatic({
 					user: repoSlug[0],
 					repo: repoSlug[1],
 					number: pullRequest,
-					body: "[Image diffs found between branch and production](" + AWS_FAILS_INDEX + ")"
+					body: "[Image diffs](" + AWS_FAILS_INDEX + ") found between branch and production — [see full output](" + AWS_SUCCESSES_INDEX + ")"
 				});
 		} else {
 			console.log("No comments to make to Pull Request");
