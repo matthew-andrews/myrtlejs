@@ -2,7 +2,7 @@
   "name": "myrtlejs",
   "version": "0.0.0",
   "bin": {
-    "casperjs": "node_modules/casperjs/casperjs",
+    "casperjs": "node_modules/casperjs/bin/casperjs",
     "myrtlejs": "bin/myrtlejs.js"
   },
   "main": "src/elements-test.js",
