@@ -4,7 +4,7 @@ require('es6-promise').polyfill();
 
 var moment = require('moment');
 var normalizeName = require('next-build-tools/lib/normalize-name');
-var packageJson = require(process.cwd() + '.herokuapp.com');
+var packageJson = require(process.cwd() + 'package.json').name + '.herokuapp.com');
 
 var fs = require('fs');
 var denodeify = require('denodeify');
