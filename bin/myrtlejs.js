@@ -12,7 +12,6 @@ function toStdErr(data) {
 }
 
 var env = Object.create(process.env);
-env.NODE_PATH = __dirname + '/../node_modules/.bin:' + env.NODE_PATH;
 var casper = spawn(__dirname + '/../node_modules/.bin/casperjs', ["test", "test/visual/test.js"], { cwd: process.cwd(), env: env });
 
 casper.stdout.on('data', toStdOut);
