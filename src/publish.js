@@ -37,12 +37,16 @@ if (fs.existsSync(LOCAL_PREFIX + "failures")) {
 } else {
 	console.log("No failures found");
 }
-console.log("results are", results);
+
+var files = results.successes
+	.concat(results.failures)
+	.map(function(file) { return LOCAL_PREFIX + file; });
+
+console.log("will upload", files);
+console.log("env keys", Object.keys(process.env));
 
 deployStatic({
-	files: results.successes
-		.concat(results.failures)
-		.map(function(file) { return LOCAL_PREFIX + file; }),
+	files: files,
 	destination: AWS_DEST_PREFIX,
 	region: 'eu-west-1',
 	bucket: 'ft-next-qa',
