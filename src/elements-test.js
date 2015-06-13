@@ -42,14 +42,20 @@ module.exports = function(configs) {
 
 		Object.keys(configs.tests).forEach(function(pageName) {
 			var config = configs.tests[pageName];
-			["base", "test"].forEach(function(env) {
-				console.log("Opening " + configs.hosts[env] + config.path);
-				casper.thenOpen("http://" + configs.hosts[env] + config.path, { method: 'get', headers: { 'Cookie': 'next-flags=javascript:off; FT_SITE=NEXT' }
-					}, function() {
-						console.log("Opened " + configs.hosts[env] + config.path);
-						config.widths.forEach(function(width) {
-							casper.viewport(width, height, function() {
-								console.log("Browser width set to " + width);
+
+			// For every width…
+			config.widths.forEach(function(width) {
+				casper.viewport(width, height, function() {
+					console.log("Browser width set to " + width);
+
+					// On both environments…
+					["base", "test"].forEach(function(env) {
+						console.log("Opening " + configs.hosts[env] + config.path);
+						casper.thenOpen("http://" + configs.hosts[env] + config.path, { method: 'get', headers: { 'Cookie': 'next-flags=javascript:off; FT_SITE=NEXT' }
+							}, function() {
+								console.log("Opened " + configs.hosts[env] + config.path);
+
+								// For each element…
 								Object.keys(config.elements).forEach(function(elementName) {
 									var fileName = pageName + "_" + elementName + "_" + width + "_" + height + "_" + env;
 									phantomcss.screenshot(config.elements[elementName], 2000, undefined, fileName);
@@ -60,7 +66,7 @@ module.exports = function(configs) {
 							});
 						});
 					});
-			});
+				});
 		});
 
 		casper.then(function() {
