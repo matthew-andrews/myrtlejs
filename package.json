@@ -1,6 +1,7 @@
 {
   "name": "myrtlejs",
   "version": "0.0.0",
+  "main": "src/elements-test",
   "dependencies": {
     "casperjs": "^1.1.0-beta3",
     "denodeify": "^1.2.1",
