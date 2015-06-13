@@ -49,6 +49,7 @@ module.exports = function(configs) {
 						console.log("Opened " + configs.hosts[env] + config.path);
 						config.widths.forEach(function(width) {
 							casper.viewport(width, height, function() {
+								console.log("Browser width set to " + width);
 								Object.keys(config.elements).forEach(function(elementName) {
 									var fileName = pageName + "_" + elementName + "_" + width + "_" + height + "_" + env;
 									phantomcss.screenshot(config.elements[elementName], 2000, undefined, fileName);
