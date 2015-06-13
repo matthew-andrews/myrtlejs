@@ -42,9 +42,6 @@ var files = results.successes
 	.concat(results.failures)
 	.map(function(file) { return LOCAL_PREFIX + file; });
 
-console.log("will upload", files);
-console.log("env keys", Object.keys(process.env));
-
 deployStatic({
 	files: files,
 	destination: AWS_DEST_PREFIX,
