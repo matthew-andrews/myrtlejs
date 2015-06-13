@@ -5,12 +5,6 @@ var isFile = require('fs').isFile;
 var phantomcss = require('phantomcss');
 var compares = [];
 var height = 1000;
-var system = require('system');
-var hosts = {
-	base: require(process.cwd() + '.herokuapp.com'),
-	test: system.env.TEST_HOST
-};
-
 
 module.exports = function(configs) {
 	casper.test.begin('Next visual regression tests', function(test) {
@@ -46,10 +40,10 @@ module.exports = function(configs) {
 		// open first url
 		casper.start();
 
-		Object.keys(configs).forEach(function(pageName) {
-			var config = configs[pageName];
+		Object.keys(configs.tests).forEach(function(pageName) {
+			var config = configs.tests[pageName];
 			["base", "test"].forEach(function(env) {
-				casper.thenOpen("http://" + hosts[env] + config.path, { method: 'get', headers: { 'Cookie': 'next-flags=javascript:off; FT_SITE=NEXT' }
+				casper.thenOpen("http://" + configs.hosts[env] + config.path, { method: 'get', headers: { 'Cookie': 'next-flags=javascript:off; FT_SITE=NEXT' }
 					}, function() {
 						config.widths.forEach(function(width) {
 							casper.viewport(width, height);
