@@ -52,6 +52,10 @@ module.exports = function(configs) {
 					casper.thenOpen("http://" + configs.hosts[env] + config.path, { method: 'get', headers: { 'Cookie': 'next-flags=javascript:off; FT_SITE=NEXT' }
 						}, function() {
 							console.log("Opened " + configs.hosts[env] + config.path);
+
+							// COMPLEX: #viewport call has to be here because it's sort of synchronous (but not quite)
+							// and calling any earlier causes it to make all screenshots have the same width
+							// (whichever happens to be the last width in the array)
 							casper.viewport(width, height);
 							console.log("Browser width set to " + width);
 
