@@ -43,16 +43,18 @@ module.exports = function(configs) {
 		Object.keys(configs.tests).forEach(function(pageName) {
 			var config = configs.tests[pageName];
 			["base", "test"].forEach(function(env) {
+				console.log("Opening " + configs.hosts[env] + config.path);
 				casper.thenOpen("http://" + configs.hosts[env] + config.path, { method: 'get', headers: { 'Cookie': 'next-flags=javascript:off; FT_SITE=NEXT' }
 					}, function() {
 						config.widths.forEach(function(width) {
-							casper.viewport(width, height);
-							Object.keys(config.elements).forEach(function(elementName) {
-								var fileName = pageName + "_" + elementName + "_" + width + "_" + height + "_" + env;
-								phantomcss.screenshot(config.elements[elementName], 2000, undefined, fileName);
-								if (env === 'base') {
-									compares.push("test/visual/screenshots/successes/" + fileName + ".png");
-								}
+							casper.viewport(width, height, function() {
+								Object.keys(config.elements).forEach(function(elementName) {
+									var fileName = pageName + "_" + elementName + "_" + width + "_" + height + "_" + env;
+									phantomcss.screenshot(config.elements[elementName], 2000, undefined, fileName);
+									if (env === 'base') {
+										compares.push("test/visual/screenshots/successes/" + fileName + ".png");
+									}
+								});
 							});
 						});
 					});
