@@ -37,6 +37,7 @@ if (fs.existsSync(LOCAL_PREFIX + "failures")) {
 } else {
 	console.log("No failures found");
 }
+console.log("results are", results);
 
 deployStatic({
 	files: results.successes
