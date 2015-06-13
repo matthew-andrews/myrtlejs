@@ -4,7 +4,7 @@ require('es6-promise').polyfill();
 
 var moment = require('moment');
 var normalizeName = require('next-build-tools/lib/normalize-name');
-var appName = require(process.cwd() + 'package.json').name;
+var appName = require(process.cwd() + '/package.json').name;
 
 var fs = require('fs');
 var denodeify = require('denodeify');
