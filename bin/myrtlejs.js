@@ -22,6 +22,7 @@ casper.on('error', function(err) {
 });
 casper.on('close', function(code, signal) {
 	if (code === 0) {
+		require('../src/publish');
 		process.exit(0);
 	} else {
 		console.log("Myrtlejs exited with " + code + ', signal ' + signal);
