@@ -46,6 +46,7 @@ module.exports = function(configs) {
 				console.log("Opening " + configs.hosts[env] + config.path);
 				casper.thenOpen("http://" + configs.hosts[env] + config.path, { method: 'get', headers: { 'Cookie': 'next-flags=javascript:off; FT_SITE=NEXT' }
 					}, function() {
+						console.log("Opened " + configs.hosts[env] + config.path);
 						config.widths.forEach(function(width) {
 							casper.viewport(width, height, function() {
 								Object.keys(config.elements).forEach(function(elementName) {
