@@ -7,7 +7,7 @@ var compares = [];
 var height = 1000;
 var system = require('system');
 var hosts = {
-	base: require(process.cwd() + '.herokuapp.com',
+	base: require(process.cwd() + '.herokuapp.com'),
 	test: system.env.TEST_HOST
 };
 
