@@ -12,7 +12,7 @@ module.exports = function(configs) {
 		// phantom config
 		phantomcss.init({
 			timeout: 1000,
-			libraryRoot: './node_modules/phantomcss',
+			libraryRoot: './node_modules/myrtlejs/node_modules/phantomcss',
 			screenshotRoot: './test/visual/screenshots/successes',
 			failedComparisonsRoot: './test/visual/screenshots/failures',
 			addLabelToFailedImage: false,
