@@ -11,15 +11,21 @@ function toStdErr(data) {
 	process.stderr.write(data.toString());
 }
 
-var casper = spawn(__dirname + '/../node_modules/.bin/casperjs', ["test", "test/visual/test.js"], { cwd: process.cwd(), env: process.env });
+var env = Object.create(process.env);
+env.NODE_PATH = __dirname + '/../node_modules/.bin:' + env.NODE_PATH;
+var casper = spawn(__dirname + '/../node_modules/.bin/casperjs', ["test", "test/visual/test.js"], { cwd: process.cwd(), env: env });
 
 casper.stdout.on('data', toStdOut);
 casper.stderr.on('data', toStdErr);
-casper.on('error', reject);
+casper.on('error', function(err) {
+	console.log("An error occurred", err);
+	process.exit(1);
+});
 casper.on('close', function(code, signal) {
 	if (code === 0) {
-		resolve();
+		process.exit(0);
 	} else {
-		reject("Myrtlejs exited with " + code + ', signal ' + signal);
+		console.log("Myrtlejs exited with " + code + ', signal ' + signal);
+		process.exit(1);
 	}
 });
