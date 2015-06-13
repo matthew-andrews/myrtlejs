@@ -62,7 +62,7 @@ deployStatic({
 					user: repoSlug[0],
 					repo: repoSlug[1],
 					number: pullRequest,
-					body: "[Image diffs](" + AWS_FAILS_INDEX + ") found between branch and production — [see full output](" + AWS_SUCCESSES_INDEX + ")"
+					body: "I've spotted a [difference](" + AWS_FAILS_INDEX + ") between your pull request and production — [see full output](" + AWS_SUCCESSES_INDEX + ")"
 				});
 		} else {
 			console.log("No comments to make to Pull Request");
