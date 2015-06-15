@@ -36,8 +36,6 @@ module.exports = function(configs) {
 
 		casper.options.pageSettings.javascriptEnabled = true;
 		casper.userAgent('Mozilla/4.0(compatible; MSIE 7.0b; Windows NT 6.0)');
-
-		// open first url
 		casper.start();
 
 		Object.keys(configs.tests).forEach(function(pageName) {
