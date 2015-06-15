@@ -1,4 +1,4 @@
-/*global casper */
+/*global casper*/
 "use strict";
 
 var isFile = require('fs').isFile;
