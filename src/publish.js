@@ -14,7 +14,8 @@ var github = new GitHubApi({ version: "3.0.0", debug: false });
 var createComment = denodeify(github.issues.createComment);
 
 var LOCAL_PREFIX = "test/visual/screenshots/";
-var AWS_DEST_PREFIX = "image_diffs/" + normalizeName(appName, { version: false }) + "/" + moment().format('YYYY-MM-DD') + "/" + moment().format('HH:mm') + "-" + process.env.TRAVIS_BUILD_NUMBER + "/";
+var BUILD_NUMBER = process.env.TRAVIS_BUILD_NUMBER ? process.env.TRAVIS_BUILD_NUMBER : process.env.CIRCLE_BUILD_NUM;
+var AWS_DEST_PREFIX = "image_diffs/" + normalizeName(appName, { version: false }) + "/" + moment().format('YYYY-MM-DD') + "/" + moment().format('HH:mm') + "-" + BUILD_NUMBER + "/";
 var AWS_FAILS_INDEX = "https://s3-eu-west-1.amazonaws.com/ft-next-qa/" + AWS_DEST_PREFIX + "failures/index.html";
 var AWS_SUCCESSES_INDEX = "https://s3-eu-west-1.amazonaws.com/ft-next-qa/" + AWS_DEST_PREFIX + "successes/index.html";
 
@@ -53,7 +54,7 @@ deployStatic({
 
 	// Make a comment if a changed has been detected and it's a PR build
 	.then(function() {
-		var pullRequest = process.env.TRAVIS_BUILD_NUMBER ? process.env.TRAVIS_PULL_REQUEST : process.env.CI_PULL_REQUEST;
+		var pullRequest = process.env.TRAVIS_PULL_REQUEST ? process.env.TRAVIS_PULL_REQUEST : process.env.CI_PULL_REQUEST;
 		var repoSlug = process.env.TRAVIS_REPO_SLUG ? process.env.TRAVIS_REPO_SLUG.split('/') : [process.env.CIRCLE_PROJECT_USERNAME, process.env.CIRCLE_PROJECT_REPONAME];
 
 		if (pullRequest !== "false" && results.failures.length > 0) {
