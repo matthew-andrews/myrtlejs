@@ -58,7 +58,7 @@ deployStatic({
 		if (process.env.TRAVIS_PULL_REQUEST) {
 			pullRequest = process.env.TRAVIS_PULL_REQUEST;
 		} else {
-			pullRequest = process.env.CI_PULL_REQUEST.replace('https://github.com/' + process.env.CIRCLE_PROJECT_USERNAME + '/' + process.env.CIRCLE_PROJECT_REPONAME + '/pull');
+			pullRequest = process.env.CI_PULL_REQUEST.replace('https://github.com/' + process.env.CIRCLE_PROJECT_USERNAME + '/' + process.env.CIRCLE_PROJECT_REPONAME + '/pull/', '');
 		}
 		var repoSlug = process.env.TRAVIS_REPO_SLUG ? process.env.TRAVIS_REPO_SLUG.split('/') : [process.env.CIRCLE_PROJECT_USERNAME, process.env.CIRCLE_PROJECT_REPONAME];
 
