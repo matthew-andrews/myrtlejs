@@ -54,10 +54,16 @@ deployStatic({
 
 	// Make a comment if a changed has been detected and it's a PR build
 	.then(function() {
-		var pullRequest = process.env.TRAVIS_PULL_REQUEST ? process.env.TRAVIS_PULL_REQUEST : process.env.CI_PULL_REQUEST;
+		var pullRequest;
+		if (process.env.TRAVIS_PULL_REQUEST) {
+			pullRequest = process.env.TRAVIS_PULL_REQUEST;
+		} else {
+			pullRequest = process.env.CI_PULL_REQUEST.replace('https://github.com/' + process.env.CIRCLE_PROJECT_USERNAME + '/' + process.env.CIRCLE_PROJECT_REPONAME + '/pull');
+		}
 		var repoSlug = process.env.TRAVIS_REPO_SLUG ? process.env.TRAVIS_REPO_SLUG.split('/') : [process.env.CIRCLE_PROJECT_USERNAME, process.env.CIRCLE_PROJECT_REPONAME];
 
 		if (pullRequest !== "false" && results.failures.length > 0) {
+			console.log("Going to post a comment to PR number: " + pullRequest);
 			github.authenticate({ type: "oauth", token: process.env.GITHUB_OAUTH });
 			return createComment({
 					user: repoSlug[0],
