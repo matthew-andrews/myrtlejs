@@ -75,6 +75,7 @@ deployStatic({
 	})
 	.catch(function(err) {
 		console.log("there was an error");
+		console.log(err);
 		console.log(err.stack);
 		process.exit(1);
 	});
