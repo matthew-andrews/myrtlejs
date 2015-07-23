@@ -13,7 +13,7 @@
     "es6-promise": "^2.3.0",
     "github": "^0.2.4",
     "moment": "^2.10.3",
-    "next-build-tools": "^2.7.0",
+    "next-build-tools": "^3.0.0",
     "phantomcss": "^0.10.1",
     "phantomjs": "^1.9.17"
   },
