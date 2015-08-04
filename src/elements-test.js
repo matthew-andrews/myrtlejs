@@ -30,12 +30,11 @@ module.exports = function(configs) {
 			this.echo("Error: " + msg, "ERROR");
 		});
 
-		casper.on("page.consoleMessage",function(msg) {
+		casper.on("remote.message",function(msg) {
 			this.echo("Message: " + msg);
 		});
 
 		casper.options.pageSettings.javascriptEnabled = true;
-		casper.userAgent('Mozilla/4.0(compatible; MSIE 7.0b; Windows NT 6.0)');
 		casper.start();
 
 		Object.keys(configs.tests).forEach(function(pageName) {
