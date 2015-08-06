@@ -47,7 +47,7 @@ module.exports = function(configs) {
 				["base", "test"].forEach(function(env) {
 					console.log("Opening " + configs.hosts[env] + config.path);
 					casper.thenOpen(
-						"http://" + configs.hosts[env] + config.path,
+						"https://" + configs.hosts[env] + config.path,
 						{
 							method: 'get',
 							headers: {
