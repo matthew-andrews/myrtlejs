@@ -46,8 +46,16 @@ module.exports = function(configs) {
 				// On both environments…
 				["base", "test"].forEach(function(env) {
 					console.log("Opening " + configs.hosts[env] + config.path);
-					casper.thenOpen("http://" + configs.hosts[env] + config.path, { method: 'get', headers: { 'Cookie': 'next-flags=javascript:off; FT_SITE=NEXT' }
-						}, function() {
+					casper.thenOpen(
+						"http://" + configs.hosts[env] + config.path,
+						{
+							method: 'get',
+							headers: {
+								'Cookie': 'next-flags=javascript:off; FT_SITE=NEXT',
+								'FT-Next-Backend-Key': system.env.FT_NEXT_BACKEND_KEY
+							}
+						},
+						function() {
 							console.log("Opened " + configs.hosts[env] + config.path);
 
 							// COMPLEX: #viewport call has to be here because it's sort of synchronous (but not quite)
@@ -64,9 +72,10 @@ module.exports = function(configs) {
 									compares.push("test/visual/screenshots/successes/" + fileName + ".png");
 								}
 							});
-						});
-					});
+						}
+					);
 				});
+			});
 		});
 
 		casper.then(function() {
